@@ -9,6 +9,11 @@ Vagrant.configure("2") do |config|
   config.vbguest.auto_update = false
   config.vbguest.no_remote = true
   config.vm.synced_folder "../.", "/home/vagrant/src", type: "nfs"
+  config.vm.provision :hosts do |provisioner|
+    provisioner.autoconfigure = true
+    provisioner.sync_hosts = true
+    provisioner.add_host '127.0.0.1', ["apollon.world.localhost"]
+  end
   config.vm.provider "virtualbox" do |vb|
     vb.gui = false
     vb.memory = "2048"
